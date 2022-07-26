@@ -1,0 +1,76 @@
+desc:hyp_exp_18 ReaX 0.0.1
+
+slider1:frequency_1_slider=200<20,24000,1>Top Freq (Hz) [Band 1]
+slider2:gain_1_slider=0<-150,12,0.1>Gain (dB) [Band 1]
+slider3:frequency_2_slider=1000<20,24000,1>Top Freq (Hz) [Band 2]
+slider4:gain_2_slider=0<-150,12,0.1>Gain (dB) [Band 2]
+slider5:frequency_3_slider=5000<20,24000,1>Top Freq (Hz) [Band 3]
+slider6:gain_3_slider=0<-150,12,0.1>Gain (dB) [Band 3]
+slider7:frequency_4_slider=24000<20,24000,1>Top Freq (Hz) [Band 4]
+slider8:gain_4_slider=0<-150,12,0.1>Gain (dB) [Band 4]
+
+in_pin:Input
+out_pin:Output
+
+
+
+@init //----------------------------------------------------------------
+
+ext_nodenorm = 1;
+
+function SVFlow_temp(v0,cutoff,Q)
+local(
+    k,
+    v1,v2
+)
+instance(
+    g,a1,a2,
+    ic1eq,ic2eq
+)
+(
+    (this.d1 = this.d0) !== (this.d0 = cutoff + Q) ? (
+        g = tan($pi*cutoff/srate);
+        k = 1/Q;
+        a1 = 1/(1 + g*(g + k));
+        a2 = g*a1;
+    );
+    
+    v1 = a1*ic1eq + a2*(v0 - ic2eq);
+    v2 = ic2eq + g*v1;
+    ic1eq = 2*v1 - ic1eq;
+    ic2eq = 2*v2 - ic2eq;
+    
+    v2;
+);
+
+function LPF(x,cutoff,q)
+(
+    cutoff > 23800 ? (
+        x;
+    ) : (
+        this.SVFlow_temp(x,min(cutoff,srate*0.499),q);
+    );
+);
+
+
+
+@slider //----------------------------------------------------------------
+
+g1 = exp(gain_1_slider*(log(10)*0.05));
+g2 = exp(gain_2_slider*(log(10)*0.05));
+g3 = exp(gain_3_slider*(log(10)*0.05));
+g4 = exp(gain_4_slider*(log(10)*0.05));
+
+
+
+@sample //----------------------------------------------------------------
+
+x = spl0;
+
+A1 = A1.LPF(x,frequency_1_slider,1);
+A2 = A2.LPF(x - A1,frequency_2_slider,1);
+A3 = A3.LPF(x - A1 - A2,frequency_3_slider,1);
+A4 = A4.LPF(x - A1 - A2 - A3,frequency_4_slider,1);
+A5 = x - A1 - A2 - A3 - A4;
+
+spl0 = A1*g1 + A2*g2 + A3*g3 + A4*g4 + A5;

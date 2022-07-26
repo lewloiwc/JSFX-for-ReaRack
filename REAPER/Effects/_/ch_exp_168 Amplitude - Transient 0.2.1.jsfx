@@ -1,0 +1,80 @@
+desc:ch_exp_168 Amplitude - Transient 0.2.1
+
+slider1:attack_1_slider=3<0,1000,0.1>attack time 1 (ms)
+slider2:release_1_slider=300<0,1000,0.1>release time 1 (ms)
+slider3:attack_2_slider=30<0,1000,0.1>attack time 2 (ms)
+slider4:release_2_slider=300<0,1000,0.1>release time 2 (ms)
+slider5:time_slider=1<0,10,0.01}>global time (×)
+//検出速度?　速度を上げると細かいTransientも拾うようになる?
+
+slider11:gain_2_slider=6<0,20,0.01>Threshold (dB)
+//Sensitivityを下げると細かいTransientを拾わなくなる? Thresholdに近い
+slider12:rel_slider=100<0,5000,1>Time (ms)
+slider13:amount_slider=50<0,100,0.1>Amount
+
+in_pin:Input L
+in_pin:Input R
+out_pin:Output A L
+out_pin:Output A R
+out_pin:Output B L
+out_pin:Output B R
+
+import more_math_functions.jsfx-inc
+import more_graphics.jsfx-inc
+
+
+
+@init //----------------------------------------------------------------
+
+ext_nodenorm = 1;
+
+function diode(x)(max(x,0));
+
+function log_lim(x)
+(
+    log(max(x,minimum));
+);
+
+minimum = to_linear(-450);
+
+
+
+@slider //----------------------------------------------------------------
+
+attack_1 = 1 - exp(-$pi/(srate*0.0005*attack_1_slider*time_slider));
+release_1 = exp(-$pi/(srate*0.0005*release_1_slider*time_slider));
+
+attack_2 = 1 - exp(-$pi/(srate*0.0005*attack_2_slider*time_slider));
+release_2 = exp(-$pi/(srate*0.0005*release_2_slider*time_slider));
+
+gain_2 = log(to_linear(-gain_2_slider));
+
+amount = ((amount_slider*0.01)^5)*-1000;
+
+rel = exp(-$pi/(srate*0.0005*rel_slider));
+
+
+
+@sample //----------------------------------------------------------------
+
+A.Vin = max(abs(spl0),abs(spl1));
+A.Vc = diode(A.Vin - A.Vc)*attack_1 + A.Vc*release_1;
+B.Vc = diode(A.Vin - B.Vc)*attack_2 + B.Vc*release_2;
+
+//log dif
+    dif = log_lim(A.Vc) - log_lim(B.Vc);
+//gate
+    dif = diode(dif + gain_2);
+//amount, exp, inv
+    gain = 1 - exp(dif*amount);
+//rel
+    x = -gain;
+    y = x <= y ? x : min(y*rel,x);
+    gain = -y;
+//smooth
+    gain = smooth.SVFlow(gain,4000,0.5);
+//output
+    spl2 = spl0*(1 - gain);
+    spl3 = spl1*(1 - gain);
+    spl0 *= gain;
+    spl1 *= gain;

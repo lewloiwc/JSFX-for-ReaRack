@@ -1,0 +1,146 @@
+@init
+
+function window(m,n,window)local(a0,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,pi,x,w)
+(
+    pi = $pi;
+    
+    //https://www.mathworks.com/matlabcentral/mlc-downloads/downloads/submissions/46092/versions/3/previews/coswin.m/index.html?access_key=
+    
+    x = (m-1)/(n-1);
+    
+    window === 0 ? (
+        // rectangular (Dirichlet), 13.3 dB, NBW 1 bin, first zero at +/-1 bin
+        w = 1;
+    );
+    window === 1 ? (
+        // Hanning, differentiable, 31.5 dB, NBW 1.5 bins, first zero at +/- 2 bins
+        w = 0.5 - 0.5*cos(2*pi*x);
+    );
+    window === 2 ? (
+        // 2 Term Cosine (Hamming), 43.187 dB, NBW 1.36766 bins, 5.37862 dB gain
+        a0 = .5383553946707251;
+        a1 = .4616446053292749;
+        w = a0 - a1*cos(2*pi*x);
+    );
+    window === 3 ? (
+        // 3 Term Cosine (Blackman-Nutall), 71.482 dB, NBW 1.70371 bins, 7.44490 dB gain
+        a0 = .4243800934609435;
+        a1 = .4973406350967378;
+        a2 = .07827927144231873;
+        w = a0 - a1*cos(2*pi*x) + a2*cos(4*pi*x);
+    );
+    window === 4 ? (
+        // 4 Term Cosine (Blackman-Nutall), 98.173 dB, NBW 1.97611 bins, 8.78795 dB gain
+        a0 = .3635819267707608;
+        a1 = .4891774371450171;
+        a2 = .1365995139786921;
+        a3 = .01064112210553003;
+        w = a0 - a1*cos(2*pi*x) + a2*cos(4*pi*x) - a3*cos(6*pi*x);
+    );
+    window === 5 ? (
+        // 5 Term Cosine, 125.427 dB, NBW 2.21535 bins, 9.81016 dB gain
+        a0 = .3232153788877343;
+        a1 = .4714921439576260;
+        a2 = .1755341299601972;
+        a3 = .02849699010614994;
+        a4 = .001261357088292677;
+        w = a0 - a1*cos(2*pi*x) + a2*cos(4*pi*x) - a3*cos(6*pi*x) + a4*cos(8*pi*x);
+    );
+    window === 6 ? (
+        // 6 Term Cosine, 153.566 dB, NBW 2.43390 bins, 10.64612 dB gain
+        a0 = .2935578950102797;
+        a1 = .4519357723474506;
+        a2 = .2014164714263962;
+        a3 = .04792610922105837;
+        a4 = .005026196426859393;
+        a5 = .0001375555679558877;
+        w = a0 - a1*cos(2*pi*x) + a2*cos(4*pi*x) - a3*cos(6*pi*x) + a4*cos(8*pi*x) - a5*cos(10*pi*x);
+    );
+    window === 7 ? (
+        // 7 Term Cosine, 180.468 dB, NBW 2.63025 bins, 11.33355 dB gain
+        a0 = .2712203605850388;
+        a1 = .4334446123274422;
+        a2 = .2180041228929303;
+        a3 = .06578534329560609;
+        a4 = .01076186730534183;
+        a5 = .0007700127105808265;
+        a6 = .00001368088305992921;
+        w = a0 - a1*cos(2*pi*x) + a2*cos(4*pi*x) - a3*cos(6*pi*x) + a4*cos(8*pi*x) - a5*cos(10*pi*x) + a6*cos(12*pi*x);
+    );
+    window === 8 ? (
+        // 8 Term Cosine, 207.512 dB, NBW 2.81292 bins, 11.92669 dB gain
+        a0 = .2533176817029088;
+        a1 = .4163269305810218;
+        a2 = .2288396213719708;
+        a3 = .08157508425925879;
+        a4 = .01773592450349622;
+        a5 = .002096702749032688;
+        a6 = .0001067741302205525;
+        a7 = .000001280702090361482;
+        w = a0 - a1*cos(2*pi*x) + a2*cos(4*pi*x) - a3*cos(6*pi*x) + a4*cos(8*pi*x) - a5*cos(10*pi*x) + a6*cos(12*pi*x) - a7*cos(14*pi*x);
+    );
+    window === 9 ? (
+        // 9 Term Cosine, 234.734 dB, NBW 2.98588 bins, 12.45267 dB gain
+        a0 = .2384331152777942;
+        a1 = .4005545348643820;
+        a2 = .2358242530472107;
+        a3 = .09527918858383112;
+        a4 = .02537395516617152;
+        a5 = .004152432907505835;
+        a6 = .0003685604163298180;
+        a7 = .00001384355593917030;
+        a8 = .0000001161808358932861;
+        w = a0 - a1*cos(2*pi*x) + a2*cos(4*pi*x) - a3*cos(6*pi*x) + a4*cos(8*pi*x) - a5*cos(10*pi*x) + a6*cos(12*pi*x) - a7*cos(14*pi*x) + a8*cos(16*pi*x);
+    );
+    window === 10 ? (
+        // 10 Term Cosine, 262.871 dB, NBW 3.15168 bins, 12.92804 dB gain
+        a0 = .2257345387130214;
+        a1 = .3860122949150963;
+        a2 = .2401294214106057;
+        a3 = .1070542338664613;
+        a4 = .03325916184016952;
+        a5 = .006873374952321475;
+        a6 = .0008751673238035159;
+        a7 = .00006008598932721187;
+        a8 = .000001710716472110202;
+        a9 = .00000001027272130265191;
+        w = a0 - a1*cos(2*pi*x) + a2*cos(4*pi*x) - a3*cos(6*pi*x) + a4*cos(8*pi*x) - a5*cos(10*pi*x) + a6*cos(12*pi*x) - a7*cos(14*pi*x) + a8*cos(16*pi*x) - a9*cos(18*pi*x);
+    );
+    window === 11 ? (
+        // 11 Term Cosine, 289.635 dB, NBW 3.30480 bins, 13.34506 dB gain
+        a0 = .2151527506679809;
+        a1 = .3731348357785249;
+        a2 = .2424243358446660;
+        a3 = .1166907592689211;
+        a4 = .04077422105878731;
+        a5 = .01000904500852923;
+        a6 = .001639806917362033;
+        a7 = .0001651660820997142;
+        a8 = .000008884663168541479;
+        a9 = .0000001938617116029048;
+        a10 = .0000000008482485599330470;
+        w = a0 - a1*cos(2*pi*x) + a2*cos(4*pi*x) - a3*cos(6*pi*x) + a4*cos(8*pi*x) - a5*cos(10*pi*x) + a6*cos(12*pi*x) - a7*cos(14*pi*x) + a8*cos(16*pi*x) - a9*cos(18*pi*x) + a10*cos(20*pi*x);
+    );
+    window === 12 ? (
+        // 2 Term Exact Hamming, 41.7 dB
+        a0 = 25/46.;
+        a1 = 21/46.;
+        w = a0 - a1*cos(2*pi*x);
+    );
+    window === 13 ? (
+        // 3 Term Exact Blackman, 68.2 dB
+        a0 = 7938/18608.;
+        a1 = 9240/18608.;
+        a2 = 1430/18608.;
+        w = a0 - a1*cos(2*pi*x) + a2*cos(4*pi*x);
+    );
+    window === 14 ? (
+        // 4 Term Blackman-Harris window, 92 dB
+        a0 = .358750287312166;
+        a1 = .488290107472600;
+        a2 = .141279712970519;
+        a3 = .0116798922447150;
+        w = a0 - a1*cos(2*pi*x) + a2*cos(4*pi*x) - a3*cos(6*pi*x);
+    );
+    w;
+);
