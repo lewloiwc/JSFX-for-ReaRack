@@ -2635,3 +2635,33 @@ local(
             mc64 = (mc64_d1 = mc64_d0) < (mc64_d0 = mouse_cap&64) ? 64 : 0;
             mouse_cap_ = mc1 + mc2 + mc4 + mc8 + mc16 + mc32 + mc64;
     );
+    
+    function mouse2()
+    local(
+        mouse_x_d0,mouse_x_d1,
+        mouse_y_d0,mouse_y_d1,
+        mc1,mc1_d0,mc1_d1,
+        mc2,mc2_d0,mc2_d1,
+        mc4,mc4_d0,mc4_d1,
+        mc8,mc8_d0,mc8_d1,
+        mc16,mc16_d0,mc16_d1,
+        mc32,mc32_d0,mc32_d1,
+        mc64,mc64_d0,mc64_d1
+    )
+    (
+        //move
+            mouse_x_ = (mouse_x_d1 = mouse_x_d0) - (mouse_x_d0 = mouse_x);
+            mouse_y_ = (mouse_y_d1 = mouse_y_d0) - (mouse_y_d0 = mouse_y);
+        //cap
+            mc1 = (mc1_d1 = mc1_d0) < (mc1_d0 = mouse_cap&1) ? 1 : 0;
+            mc2 = (mc2_d1 = mc2_d0) < (mc2_d0 = mouse_cap&2) ? 2 : 0;
+            mc4 = (mc4_d1 = mc4_d0) < (mc4_d0 = mouse_cap&4) ? 4 : 0;
+            mc8 = (mc8_d1 = mc8_d0) < (mc8_d0 = mouse_cap&8) ? 8 : 0;
+            mc16 = (mc16_d1 = mc16_d0) < (mc16_d0 = mouse_cap&16) ? 16 : 0;
+            mc32 = (mc32_d1 = mc32_d0) < (mc32_d0 = mouse_cap&32) ? 32 : 0;
+            mc64 = (mc64_d1 = mc64_d0) < (mc64_d0 = mouse_cap&64) ? 64 : 0;
+            mouse_cap_ = mc1 + mc2 + mc4 + mc8 + mc16 + mc32 + mc64;
+        //mouse_wheel
+            mouse_wheel_ = mouse_wheel/120;
+            mouse_wheel = 0;
+    );

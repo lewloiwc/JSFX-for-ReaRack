@@ -24,9 +24,14 @@ function modulo(n,m)
     (n/m - floor(n/m))*m
 );
 
-function lerp(a,b,t)
+/*function lerp(a,b,t)
 (
     a + (b - a)*t
+);*/
+//新記法
+function lerp(a,b,t)
+(
+    (1 - t)*a + t*b;
 );
 
 function CosineInterpolation(a,b,t)
@@ -59,9 +64,16 @@ function log_lim(x)
     max(log(x),-1000);
 );
 
-function cexp(r,i)local(ex)
+/*function cexp(r,i)local(ex)
 (
     ex = exp(1)^r[];
+    r[] = ex*cos(i[]);
+    i[] = ex*sin(i[]);
+);*/
+
+function cexp(r,i)local(ex)
+(
+    ex = exp(r[]);
     r[] = ex*cos(i[]);
     i[] = ex*sin(i[]);
 );
@@ -99,10 +111,15 @@ function centermulti(n,center,multi)
     (n - floor(n))*2 - 1;
 );*/
 
-function saw(x)
+/*function saw(x)
 (
     x = x*0.5/$pi + 0.5;
     (x - floor(x))*2 - 1;
+);*/
+
+function saw(x)
+(
+    ((x*(0.5/$pi) + 0.5) - floor((x*(0.5/$pi) + 0.5)))*2 - 1;
 );
 
 /*function tri(n)
@@ -125,15 +142,132 @@ function tri(x)
     sign(abs(n - floor(n) - .5)*4 - 1);
 );*/
 
-function rect(x)
+/*function rect(x)
 (
     x = x*0.5/$pi + 0.75;
     sign(abs(x - floor(x) - 0.5)*4 - 1);
+);*/
+//xが0の時yが0になるバグを修正　問題が発生したら↑のrectに戻す
+//あとこのことを書いてたメモどこにいった?　メモが散乱しすぎてもうだめだ
+function rect(x)
+(
+    x*(0.5/$pi) - floor(x*(0.5/$pi)) < 0.5 ? 1 : -1;
+);
+
+function pwm(x,duty)
+(
+    x = x*0.5/$pi;
+    x - floor(x) < duty ? 1 : -1;
 );
 
 function ms_to_Hz(x)
 (
-    1/x*1000;
+    //1/x*1000;
+    1000/x;
+);
+
+function Hz_to_ms(x)
+(
+    1000/x;
+);
+
+function ms_to_sample(x)
+(
+    x*0.001*srate;
+);
+
+function max(a,b,c)
+(
+    max(max(a,b),c);
+);
+
+function ramp(x)
+(
+    x <= 0 ? 0 : x;
+);
+
+function pwl(x,x0,y0,x1,y1)
+(
+    x < x0 ? y0 :
+    x < x1 ? remap(x,x0,x1,y0,y1) :
+    y1;
+);
+
+function pwl(x,x0,y0,x1,y1,x2,y2)
+(
+    x < x0 ? y0 :
+    x < x1 ? remap(x,x0,x1,y0,y1) :
+    x < x2 ? remap(x,x1,x2,y1,y2) :
+    y2;
+);
+
+function pwl(x,x0,y0,x1,y1,x2,y2,x3,y3)
+(
+    x < x0 ? y0 :
+    x < x1 ? remap(x,x0,x1,y0,y1) :
+    x < x2 ? remap(x,x1,x2,y1,y2) :
+    x < x3 ? remap(x,x2,x3,y2,y3) :
+    y3;
+);
+
+function pwl(x,x0,y0,x1,y1,x2,y2,x3,y3,x4,y4)
+(
+    x < x0 ? y0 :
+    x < x1 ? remap(x,x0,x1,y0,y1) :
+    x < x2 ? remap(x,x1,x2,y1,y2) :
+    x < x3 ? remap(x,x2,x3,y2,y3) :
+    x < x4 ? remap(x,x3,x4,y3,y4) :
+    y4;
+);
+
+function pwl(x,x0,y0,x1,y1,x2,y2,x3,y3,x4,y4,x5,y5)
+(
+    x < x0 ? y0 :
+    x < x1 ? remap(x,x0,x1,y0,y1) :
+    x < x2 ? remap(x,x1,x2,y1,y2) :
+    x < x3 ? remap(x,x2,x3,y2,y3) :
+    x < x4 ? remap(x,x3,x4,y3,y4) :
+    x < x5 ? remap(x,x4,x5,y4,y5) :
+    y5;
+);
+
+function pwl(x,x0,y0,x1,y1,x2,y2,x3,y3,x4,y4,x5,y5,x6,y6)
+(
+    x < x0 ? y0 :
+    x < x1 ? remap(x,x0,x1,y0,y1) :
+    x < x2 ? remap(x,x1,x2,y1,y2) :
+    x < x3 ? remap(x,x2,x3,y2,y3) :
+    x < x4 ? remap(x,x3,x4,y3,y4) :
+    x < x5 ? remap(x,x4,x5,y4,y5) :
+    x < x6 ? remap(x,x5,x6,y5,y6) :
+    y6;
+);
+
+function pwl(x,x0,y0,x1,y1,x2,y2,x3,y3,x4,y4,x5,y5,x6,y6,x7,y7)
+(
+    x < x0 ? y0 :
+    x < x1 ? remap(x,x0,x1,y0,y1) :
+    x < x2 ? remap(x,x1,x2,y1,y2) :
+    x < x3 ? remap(x,x2,x3,y2,y3) :
+    x < x4 ? remap(x,x3,x4,y3,y4) :
+    x < x5 ? remap(x,x4,x5,y4,y5) :
+    x < x6 ? remap(x,x5,x6,y5,y6) :
+    x < x7 ? remap(x,x6,x7,y6,y7) :
+    y7;
+);
+
+function pwl(x,x0,y0,x1,y1,x2,y2,x3,y3,x4,y4,x5,y5,x6,y6,x7,y7,x8,y8)
+(
+    x < x0 ? y0 :
+    x < x1 ? remap(x,x0,x1,y0,y1) :
+    x < x2 ? remap(x,x1,x2,y1,y2) :
+    x < x3 ? remap(x,x2,x3,y2,y3) :
+    x < x4 ? remap(x,x3,x4,y3,y4) :
+    x < x5 ? remap(x,x4,x5,y4,y5) :
+    x < x6 ? remap(x,x5,x6,y5,y6) :
+    x < x7 ? remap(x,x6,x7,y6,y7) :
+    x < x8 ? remap(x,x7,x8,y7,y8) :
+    y8;
 );
 
 // Rounding --------------------------------
@@ -205,6 +339,11 @@ function acosh(x)
 function tanh(x)
 (
     2/(1 + exp(-x*2)) - 1;
+);
+
+function atanh(x)
+(
+    0.5*log((1 + x)/(1 - x));
 );
 
 // cross-fade --------------------------------
@@ -422,6 +561,15 @@ instance(xs32n_switch,xs32n_y,xs32n_seedreturn)
     
     xs32n_y/0x80000000;
 );
+
+function xorshift32_n1_to_1(seed)
+(
+    this === 0 ? this = seed;
+    
+    this ~= this << 13;
+    this ~= this >> 17;
+    (this ~= this << 5)/0x80000000;
+);
 // Time --------------------------------
 //must prefix
 function delay(in,delay,memselect)
@@ -436,7 +584,7 @@ instance(delaycount)
     delaycount[memselect];
 );
 //must prefix
-function delay1(x,mem,delay)
+/*function delay1(x,mem,delay)
 (
     mem[this.delay.cnt] = x;
     this.delay.cnt < delay ? (
@@ -445,6 +593,21 @@ function delay1(x,mem,delay)
         this.delay.cnt = 0;
     );
     mem[this.delay.cnt];
+);*/
+//must prefix
+function delay1(x,mem,delay)
+(
+    delay <= 0 ? (
+        x;
+    ) : (
+        mem[this.delay.cnt] = x;
+        this.delay.cnt < delay ? (
+            this.delay.cnt += 1;
+        ) : (
+            this.delay.cnt = 0;
+        );
+        mem[this.delay.cnt];
+    );
 );
 //must prefix
 function delay1_init(mem,delay)
@@ -1109,6 +1272,302 @@ function SVFlow6_init()
     this.iB3 = 0;
 );
 
+function SVFlow8_set(cutoff,Q,samplerate)
+(
+    this.g = tan($pi*cutoff/samplerate);
+    
+    this.a1.1 = 1/(1 + this.g*(this.g + 1/(0.5/cos(1*$pi/16))));
+    this.a2.1 = this.g*this.a1.1;
+    
+    this.a1.2 = 1/(1 + this.g*(this.g + 1/(0.5/cos(3*$pi/16))));
+    this.a2.2 = this.g*this.a1.2;
+    
+    this.a1.3 = 1/(1 + this.g*(this.g + 1/(0.5/cos(5*$pi/16))));
+    this.a2.3 = this.g*this.a1.3;
+    
+    this.a1.4 = 1/(1 + this.g*(this.g + 1/(sqrt(0.5)/cos(7*$pi/16)*Q)));
+    this.a2.4 = this.g*this.a1.4;
+);
+
+function SVFlow8(v0)
+local(
+    v1,v2
+)
+(
+    v2 = v0;
+    
+    v1 = this.a1.1*this.ic1eq.1 + this.a2.1*(v2 - this.ic2eq.1);
+    v2 = this.ic2eq.1 + this.g*v1;
+    this.ic1eq.1 = 2*v1 - this.ic1eq.1;
+    this.ic2eq.1 = 2*v2 - this.ic2eq.1;
+    
+    v1 = this.a1.2*this.ic1eq.2 + this.a2.2*(v2 - this.ic2eq.2);
+    v2 = this.ic2eq.2 + this.g*v1;
+    this.ic1eq.2 = 2*v1 - this.ic1eq.2;
+    this.ic2eq.2 = 2*v2 - this.ic2eq.2;
+    
+    v1 = this.a1.3*this.ic1eq.3 + this.a2.3*(v2 - this.ic2eq.3);
+    v2 = this.ic2eq.3 + this.g*v1;
+    this.ic1eq.3 = 2*v1 - this.ic1eq.3;
+    this.ic2eq.3 = 2*v2 - this.ic2eq.3;
+    
+    v1 = this.a1.4*this.ic1eq.4 + this.a2.4*(v2 - this.ic2eq.4);
+    v2 = this.ic2eq.4 + this.g*v1;
+    this.ic1eq.4 = 2*v1 - this.ic1eq.4;
+    this.ic2eq.4 = 2*v2 - this.ic2eq.4;
+    
+    v2;
+);
+
+function SVFlow16_set(cutoff,Q,samplerate)
+(
+    this.g = tan($pi*cutoff/samplerate);
+    
+    this.a1.1 = 1/(1 + this.g*(this.g + 1/(0.5/cos(1*$pi/32))));
+    this.a2.1 = this.g*this.a1.1;
+    
+    this.a1.2 = 1/(1 + this.g*(this.g + 1/(0.5/cos(3*$pi/32))));
+    this.a2.2 = this.g*this.a1.2;
+    
+    this.a1.3 = 1/(1 + this.g*(this.g + 1/(0.5/cos(5*$pi/32))));
+    this.a2.3 = this.g*this.a1.3;
+    
+    this.a1.4 = 1/(1 + this.g*(this.g + 1/(0.5/cos(7*$pi/32))));
+    this.a2.4 = this.g*this.a1.4;
+    
+    this.a1.5 = 1/(1 + this.g*(this.g + 1/(0.5/cos(9*$pi/32))));
+    this.a2.5 = this.g*this.a1.5;
+    
+    this.a1.6 = 1/(1 + this.g*(this.g + 1/(0.5/cos(11*$pi/32))));
+    this.a2.6 = this.g*this.a1.6;
+    
+    this.a1.7 = 1/(1 + this.g*(this.g + 1/(0.5/cos(13*$pi/32))));
+    this.a2.7 = this.g*this.a1.7;
+    
+    this.a1.8 = 1/(1 + this.g*(this.g + 1/(sqrt(0.5)/cos(15*$pi/32)*Q)));
+    this.a2.8 = this.g*this.a1.8;
+);
+
+function SVFlow16(v0)
+local(
+    v1,v2
+)
+(
+    v2 = this.ic2eq.1 + this.g*(v1 = this.a1.1*this.ic1eq.1 + this.a2.1*(v0 - this.ic2eq.1));
+    this.ic1eq.1 = 2*v1 - this.ic1eq.1;
+    this.ic2eq.1 = 2*v2 - this.ic2eq.1;
+    
+    v2 = this.ic2eq.2 + this.g*(v1 = this.a1.2*this.ic1eq.2 + this.a2.2*(v2 - this.ic2eq.2));
+    this.ic1eq.2 = 2*v1 - this.ic1eq.2;
+    this.ic2eq.2 = 2*v2 - this.ic2eq.2;
+    
+    v2 = this.ic2eq.3 + this.g*(v1 = this.a1.3*this.ic1eq.3 + this.a2.3*(v2 - this.ic2eq.3));
+    this.ic1eq.3 = 2*v1 - this.ic1eq.3;
+    this.ic2eq.3 = 2*v2 - this.ic2eq.3;
+    
+    v2 = this.ic2eq.4 + this.g*(v1 = this.a1.4*this.ic1eq.4 + this.a2.4*(v2 - this.ic2eq.4));
+    this.ic1eq.4 = 2*v1 - this.ic1eq.4;
+    this.ic2eq.4 = 2*v2 - this.ic2eq.4;
+    
+    v2 = this.ic2eq.5 + this.g*(v1 = this.a1.5*this.ic1eq.5 + this.a2.5*(v2 - this.ic2eq.5));
+    this.ic1eq.5 = 2*v1 - this.ic1eq.5;
+    this.ic2eq.5 = 2*v2 - this.ic2eq.5;
+    
+    v2 = this.ic2eq.6 + this.g*(v1 = this.a1.6*this.ic1eq.6 + this.a2.6*(v2 - this.ic2eq.6));
+    this.ic1eq.6 = 2*v1 - this.ic1eq.6;
+    this.ic2eq.6 = 2*v2 - this.ic2eq.6;
+    
+    v2 = this.ic2eq.7 + this.g*(v1 = this.a1.7*this.ic1eq.7 + this.a2.7*(v2 - this.ic2eq.7));
+    this.ic1eq.7 = 2*v1 - this.ic1eq.7;
+    this.ic2eq.7 = 2*v2 - this.ic2eq.7;
+    
+    v2 = this.ic2eq.8 + this.g*(v1 = this.a1.8*this.ic1eq.8 + this.a2.8*(v2 - this.ic2eq.8));
+    this.ic1eq.8 = 2*v1 - this.ic1eq.8;
+    this.ic2eq.8 = 2*v2 - this.ic2eq.8;
+    
+    v2;
+);
+
+function SVFlow20_set(cutoff,Q,samplerate)
+(
+    this.g = tan($pi*cutoff/samplerate);
+    
+    this.a1.1 = 1/(1 + this.g*(this.g + 1/(0.5/cos(1*$pi/40))));
+    this.a2.1 = this.g*this.a1.1;
+    
+    this.a1.2 = 1/(1 + this.g*(this.g + 1/(0.5/cos(3*$pi/40))));
+    this.a2.2 = this.g*this.a1.2;
+    
+    this.a1.3 = 1/(1 + this.g*(this.g + 1/(0.5/cos(5*$pi/40))));
+    this.a2.3 = this.g*this.a1.3;
+    
+    this.a1.4 = 1/(1 + this.g*(this.g + 1/(0.5/cos(7*$pi/40))));
+    this.a2.4 = this.g*this.a1.4;
+    
+    this.a1.5 = 1/(1 + this.g*(this.g + 1/(0.5/cos(9*$pi/40))));
+    this.a2.5 = this.g*this.a1.5;
+    
+    this.a1.6 = 1/(1 + this.g*(this.g + 1/(0.5/cos(11*$pi/40))));
+    this.a2.6 = this.g*this.a1.6;
+    
+    this.a1.7 = 1/(1 + this.g*(this.g + 1/(0.5/cos(13*$pi/40))));
+    this.a2.7 = this.g*this.a1.7;
+    
+    this.a1.8 = 1/(1 + this.g*(this.g + 1/(0.5/cos(15*$pi/40))));
+    this.a2.8 = this.g*this.a1.8;
+    
+    this.a1.9 = 1/(1 + this.g*(this.g + 1/(0.5/cos(17*$pi/40))));
+    this.a2.9 = this.g*this.a1.9;
+    
+    this.a1.10 = 1/(1 + this.g*(this.g + 1/(sqrt(0.5)/cos(19*$pi/40)*Q)));
+    this.a2.10 = this.g*this.a1.10;
+);
+
+function SVFlow20(v0)
+local(
+    v1,v2
+)
+(
+    v2 = this.ic2eq.1 + this.g*(v1 = this.a1.1*this.ic1eq.1 + this.a2.1*(v0 - this.ic2eq.1));
+    this.ic1eq.1 = 2*v1 - this.ic1eq.1;
+    this.ic2eq.1 = 2*v2 - this.ic2eq.1;
+    
+    v2 = this.ic2eq.2 + this.g*(v1 = this.a1.2*this.ic1eq.2 + this.a2.2*(v2 - this.ic2eq.2));
+    this.ic1eq.2 = 2*v1 - this.ic1eq.2;
+    this.ic2eq.2 = 2*v2 - this.ic2eq.2;
+    
+    v2 = this.ic2eq.3 + this.g*(v1 = this.a1.3*this.ic1eq.3 + this.a2.3*(v2 - this.ic2eq.3));
+    this.ic1eq.3 = 2*v1 - this.ic1eq.3;
+    this.ic2eq.3 = 2*v2 - this.ic2eq.3;
+    
+    v2 = this.ic2eq.4 + this.g*(v1 = this.a1.4*this.ic1eq.4 + this.a2.4*(v2 - this.ic2eq.4));
+    this.ic1eq.4 = 2*v1 - this.ic1eq.4;
+    this.ic2eq.4 = 2*v2 - this.ic2eq.4;
+    
+    v2 = this.ic2eq.5 + this.g*(v1 = this.a1.5*this.ic1eq.5 + this.a2.5*(v2 - this.ic2eq.5));
+    this.ic1eq.5 = 2*v1 - this.ic1eq.5;
+    this.ic2eq.5 = 2*v2 - this.ic2eq.5;
+    
+    v2 = this.ic2eq.6 + this.g*(v1 = this.a1.6*this.ic1eq.6 + this.a2.6*(v2 - this.ic2eq.6));
+    this.ic1eq.6 = 2*v1 - this.ic1eq.6;
+    this.ic2eq.6 = 2*v2 - this.ic2eq.6;
+    
+    v2 = this.ic2eq.7 + this.g*(v1 = this.a1.7*this.ic1eq.7 + this.a2.7*(v2 - this.ic2eq.7));
+    this.ic1eq.7 = 2*v1 - this.ic1eq.7;
+    this.ic2eq.7 = 2*v2 - this.ic2eq.7;
+    
+    v2 = this.ic2eq.8 + this.g*(v1 = this.a1.8*this.ic1eq.8 + this.a2.8*(v2 - this.ic2eq.8));
+    this.ic1eq.8 = 2*v1 - this.ic1eq.8;
+    this.ic2eq.8 = 2*v2 - this.ic2eq.8;
+    
+    v2 = this.ic2eq.9 + this.g*(v1 = this.a1.9*this.ic1eq.9 + this.a2.9*(v2 - this.ic2eq.9));
+    this.ic1eq.9 = 2*v1 - this.ic1eq.9;
+    this.ic2eq.9 = 2*v2 - this.ic2eq.9;
+    
+    v2 = this.ic2eq.10 + this.g*(v1 = this.a1.10*this.ic1eq.10 + this.a2.10*(v2 - this.ic2eq.10));
+    this.ic1eq.10 = 2*v1 - this.ic1eq.10;
+    this.ic2eq.10 = 2*v2 - this.ic2eq.10;
+    
+    v2;
+);
+
+function SVFlow24_set(cutoff,Q,samplerate)
+(
+    this.g = tan($pi*cutoff/samplerate);
+    
+    this.a1.1 = 1/(1 + this.g*(this.g + 1/(0.5/cos(1*$pi/48))));
+    this.a2.1 = this.g*this.a1.1;
+    
+    this.a1.2 = 1/(1 + this.g*(this.g + 1/(0.5/cos(3*$pi/48))));
+    this.a2.2 = this.g*this.a1.2;
+    
+    this.a1.3 = 1/(1 + this.g*(this.g + 1/(0.5/cos(5*$pi/48))));
+    this.a2.3 = this.g*this.a1.3;
+    
+    this.a1.4 = 1/(1 + this.g*(this.g + 1/(0.5/cos(7*$pi/48))));
+    this.a2.4 = this.g*this.a1.4;
+    
+    this.a1.5 = 1/(1 + this.g*(this.g + 1/(0.5/cos(9*$pi/48))));
+    this.a2.5 = this.g*this.a1.5;
+    
+    this.a1.6 = 1/(1 + this.g*(this.g + 1/(0.5/cos(11*$pi/48))));
+    this.a2.6 = this.g*this.a1.6;
+    
+    this.a1.7 = 1/(1 + this.g*(this.g + 1/(0.5/cos(13*$pi/48))));
+    this.a2.7 = this.g*this.a1.7;
+    
+    this.a1.8 = 1/(1 + this.g*(this.g + 1/(0.5/cos(15*$pi/48))));
+    this.a2.8 = this.g*this.a1.8;
+    
+    this.a1.9 = 1/(1 + this.g*(this.g + 1/(0.5/cos(17*$pi/48))));
+    this.a2.9 = this.g*this.a1.9;
+    
+    this.a1.10 = 1/(1 + this.g*(this.g + 1/(0.5/cos(19*$pi/48))));
+    this.a2.10 = this.g*this.a1.10;
+    
+    this.a1.11 = 1/(1 + this.g*(this.g + 1/(0.5/cos(21*$pi/48))));
+    this.a2.11 = this.g*this.a1.11;
+    
+    this.a1.12 = 1/(1 + this.g*(this.g + 1/(sqrt(0.5)/cos(23*$pi/48)*Q)));
+    this.a2.12 = this.g*this.a1.12;
+);
+
+function SVFlow24(v0)
+local(
+    v1,v2
+)
+(
+    v2 = this.ic2eq.1 + this.g*(v1 = this.a1.1*this.ic1eq.1 + this.a2.1*(v0 - this.ic2eq.1));
+    this.ic1eq.1 = 2*v1 - this.ic1eq.1;
+    this.ic2eq.1 = 2*v2 - this.ic2eq.1;
+    
+    v2 = this.ic2eq.2 + this.g*(v1 = this.a1.2*this.ic1eq.2 + this.a2.2*(v2 - this.ic2eq.2));
+    this.ic1eq.2 = 2*v1 - this.ic1eq.2;
+    this.ic2eq.2 = 2*v2 - this.ic2eq.2;
+    
+    v2 = this.ic2eq.3 + this.g*(v1 = this.a1.3*this.ic1eq.3 + this.a2.3*(v2 - this.ic2eq.3));
+    this.ic1eq.3 = 2*v1 - this.ic1eq.3;
+    this.ic2eq.3 = 2*v2 - this.ic2eq.3;
+    
+    v2 = this.ic2eq.4 + this.g*(v1 = this.a1.4*this.ic1eq.4 + this.a2.4*(v2 - this.ic2eq.4));
+    this.ic1eq.4 = 2*v1 - this.ic1eq.4;
+    this.ic2eq.4 = 2*v2 - this.ic2eq.4;
+    
+    v2 = this.ic2eq.5 + this.g*(v1 = this.a1.5*this.ic1eq.5 + this.a2.5*(v2 - this.ic2eq.5));
+    this.ic1eq.5 = 2*v1 - this.ic1eq.5;
+    this.ic2eq.5 = 2*v2 - this.ic2eq.5;
+    
+    v2 = this.ic2eq.6 + this.g*(v1 = this.a1.6*this.ic1eq.6 + this.a2.6*(v2 - this.ic2eq.6));
+    this.ic1eq.6 = 2*v1 - this.ic1eq.6;
+    this.ic2eq.6 = 2*v2 - this.ic2eq.6;
+    
+    v2 = this.ic2eq.7 + this.g*(v1 = this.a1.7*this.ic1eq.7 + this.a2.7*(v2 - this.ic2eq.7));
+    this.ic1eq.7 = 2*v1 - this.ic1eq.7;
+    this.ic2eq.7 = 2*v2 - this.ic2eq.7;
+    
+    v2 = this.ic2eq.8 + this.g*(v1 = this.a1.8*this.ic1eq.8 + this.a2.8*(v2 - this.ic2eq.8));
+    this.ic1eq.8 = 2*v1 - this.ic1eq.8;
+    this.ic2eq.8 = 2*v2 - this.ic2eq.8;
+    
+    v2 = this.ic2eq.9 + this.g*(v1 = this.a1.9*this.ic1eq.9 + this.a2.9*(v2 - this.ic2eq.9));
+    this.ic1eq.9 = 2*v1 - this.ic1eq.9;
+    this.ic2eq.9 = 2*v2 - this.ic2eq.9;
+    
+    v2 = this.ic2eq.10 + this.g*(v1 = this.a1.10*this.ic1eq.10 + this.a2.10*(v2 - this.ic2eq.10));
+    this.ic1eq.10 = 2*v1 - this.ic1eq.10;
+    this.ic2eq.10 = 2*v2 - this.ic2eq.10;
+    
+    v2 = this.ic2eq.11 + this.g*(v1 = this.a1.11*this.ic1eq.11 + this.a2.11*(v2 - this.ic2eq.11));
+    this.ic1eq.11 = 2*v1 - this.ic1eq.11;
+    this.ic2eq.11 = 2*v2 - this.ic2eq.11;
+    
+    v2 = this.ic2eq.12 + this.g*(v1 = this.a1.12*this.ic1eq.12 + this.a2.12*(v2 - this.ic2eq.12));
+    this.ic1eq.12 = 2*v1 - this.ic1eq.12;
+    this.ic2eq.12 = 2*v2 - this.ic2eq.12;
+    
+    v2;
+);
+
 //https://cytomic.com/files/dsp/SvfLinearTrapOptimised2.pdf
 function SVFband(v0,cutoff,Q)
     local(
@@ -1422,6 +1881,11 @@ function sqr_rectifier(x)
     (
         this.k2*sqr(x*this.k1 + 0.5);
     );
+);
+
+function swish(x,b)
+(
+    x/(1 + exp(-b*x));
 );
 
 // Smooth maximum --------------------------------
