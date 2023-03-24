@@ -623,7 +623,7 @@ function slope(x)
             spl0.2 = conv2.y0;
             spl1.2 = conv2.y1;
             spl0.3 = splDry.delay0 - (conv1.y0 + conv2.y0);
-            spl1.3 = splDry.delay1 - (conv1.y0 + conv2.y0);
+            spl1.3 = splDry.delay1 - (conv1.y1 + conv2.y1);
         ) :
         band_slider === 2 ? (
             spl0.2 = conv2.y0;
