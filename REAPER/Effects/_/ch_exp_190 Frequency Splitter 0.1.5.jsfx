@@ -1,7 +1,7 @@
 desc:ch_exp_190 Frequency Splitter 0.1.5
 
-slider1:mode_slider=0<,,{[N Band] Linkwitz-Riley (Minimum Phase),[N Band] Linkwitz-Riley (Linear Phase),[N Band] Butterworth (Minimum Phase),[N Band] Sinc (Linear Phase),[N Band] ReaX,[3 Band] Inflator,[N Band] StudioRack (Waves)}>Mode
-slider2:band_slider=0<,,{2,3,4}>Band
+slider1:mode_slider=0<0,6,1{[N Band] Linkwitz-Riley (Minimum Phase),[N Band] Linkwitz-Riley (Linear Phase),[N Band] Butterworth (Minimum Phase),[N Band] Sinc (Linear Phase),[N Band] ReaX,[3 Band] Inflator,[N Band] StudioRack (Waves)}>Mode
+slider2:band_slider=0<0,2,1{2,3,4}>Band
 
 slider11:frequency_1_slider=100<20,20000,0.01:log>Frequency 1 (Hz)
 slider12:slope_1_slider=12<0.1,120,0.1:log=12>Slope 1 (dB/oct)
@@ -13,7 +13,7 @@ slider31:frequency_3_slider=5000<20,20000,0.01:log>Frequency 3 (Hz)
 slider32:slope_3_slider=12<0.1,120,0.1:log=12>Slope 3 (dB/oct)
 
 slider51:len_slider=100<0,500,0.01>IR Length (ms)
-slider52:win_slider=1<0,0,0{rectangular (Dirichlet) | 13.3 dB,Hanning | differentiable | 31.5 dB,2 Term Cosine (Hamming) | 43.187 dB,3 Term Cosine (Blackman-Nutall) | 71.482 dB,4 Term Cosine (Blackman-Nutall) | 98.173 dB,5 Term Cosine | 125.427 dB,6 Term Cosine | 153.566 dB,7 Term Cosine | 180.468 dB,8 Term Cosine | 207.512 dB,9 Term Cosine | 234.734 dB,10 Term Cosine | 262.871 dB,11 Term Cosine | 289.635 dB,2 Term Exact Hamming | 41.7 dB,3 Term Exact Blackman | 68.2 dB,4 Term Blackman-Harris window | 92 dB}>Window Function
+slider52:win_slider=1<0,14,1{rectangular (Dirichlet) | 13.3 dB,Hanning | differentiable | 31.5 dB,2 Term Cosine (Hamming) | 43.187 dB,3 Term Cosine (Blackman-Nutall) | 71.482 dB,4 Term Cosine (Blackman-Nutall) | 98.173 dB,5 Term Cosine | 125.427 dB,6 Term Cosine | 153.566 dB,7 Term Cosine | 180.468 dB,8 Term Cosine | 207.512 dB,9 Term Cosine | 234.734 dB,10 Term Cosine | 262.871 dB,11 Term Cosine | 289.635 dB,2 Term Exact Hamming | 41.7 dB,3 Term Exact Blackman | 68.2 dB,4 Term Blackman-Harris window | 92 dB}>Window Function
 
 in_pin:Input L
 in_pin:Input R

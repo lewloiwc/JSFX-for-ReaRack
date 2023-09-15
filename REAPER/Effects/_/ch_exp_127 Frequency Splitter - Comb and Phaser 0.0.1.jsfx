@@ -1,6 +1,6 @@
 desc:ch_exp_127 Frequency Splitter - Comb and Phaser 0.0.1
 
-slider1:mode_slider=0<0,0,0{Comb,Phaser}>Mode
+slider1:mode_slider=0<0,1,1{Comb,Phaser}>Mode
 slider2:frequency_slider=1000<10,20000,1>Frequency (Hz)
 slider3:q_slider=0.25<0.01,40,0.01>Q
 slider4:notches_slider=8<1,64,1>Notches

@@ -1,15 +1,15 @@
 desc:ch_exp_63C Open Delay 2.0.3
 
-slider1:mode_slider=0<,,{Receive,Delay / Send}>Mode
+slider1:mode_slider=0<0,1,1{Receive,Delay / Send}>Mode
 slider2:id_slider=0<0,127,1>ID
-slider3:clip_slider=1<,,{Off,On}>Hard Clip
+slider3:clip_slider=1<0,1,1{Off,On}>Hard Clip
 slider4:threshold_slider=0<-120,20,.1>Threshold (dBFS)
-slider5:dc_slider=1<,,{Off,On}>DC Filter
+slider5:dc_slider=1<0,1,1{Off,On}>DC Filter
 slider6:cutoff_slider=20<1,200,.1>Cutoff (Hz)
 slider7:delay_ms_slider=0<-500,3000,1>Delay (Time - ms)
 slider8:sync1_slider=1<0,128,1>Delay (Sync - Numerator)
 slider9:sync2_slider=8<1,128,1>Delay (Sync - Denominator)
-slider10:sync3_slider=3<,,{Straight 2/1 (*2),Dotted (*1.5),Triplet (*1.333),Straight (*1),Dotted 1/2 (*0.75),Triplet 1/2 (*0.667),Straight 1/2 (*0.5)}>Delay (Sync - Notation)
+slider10:sync3_slider=3<0,6,1{Straight 2/1 (*2),Dotted (*1.5),Triplet (*1.333),Straight (*1),Dotted 1/2 (*0.75),Triplet 1/2 (*0.667),Straight 1/2 (*0.5)}>Delay (Sync - Notation)
 slider11:pdcc_slider=0<0,30000,1>PDC inside feedback loop (spls)
 slider12:feedback_slider=50<0,200,.1>Feedback (%)
 slider13:output_slider=0<-120,20,.1>Output (dB)

@@ -1,9 +1,9 @@
 desc:ch_exp_127 Frequency Splitter - Linkwitz-Riley (Minimum Phase) 0.4.0
 
 slider1:frequency_a_slider=90<20,20000,1>Crossover Frequency A [Hz]
-slider2:slope_a_slider=1<0,0,{12,24,36,48}>Slope A
+slider2:slope_a_slider=1<0,3,1{12,24,36,48}>Slope A
 slider3:frequency_b_slider=2500<20,20000,1>Crossover Frequency B [Hz]
-slider4:slope_b_slider=1<0,0,{12,24,36,48}>Slope B
+slider4:slope_b_slider=1<0,3,1{12,24,36,48}>Slope B
 
 slider41:ext_nodenorm_slider=0<0,0,{0,1}>ext_nodenorm
 

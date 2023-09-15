@@ -1,6 +1,6 @@
 desc:hyp_exp_16 n dB-oct LR and Sinc Frequency Splitter 0.0.3
 
-slider1:mode_slider=0<0,0,0{Linkwitz-Riley,Sinc}>Mode
+slider1:mode_slider=0<0,1,1{Linkwitz-Riley,Sinc}>Mode
 
 slider3:frequency_a_slider=90<20,20000,1>Frequency A [Hz]
 slider4:slope_a_slider=12<0.1,120,0.1>Slope A [dB/oct]
@@ -8,7 +8,7 @@ slider5:frequency_b_slider=2500<20,20000,1>Frequency B [Hz]
 slider6:slope_b_slider=12<0.1,120,0.1>Slope B [dB/oct]
 
 slider8:len_slider=100<0,500,0.01>IR Length [ms]
-slider9:win_slider=1<0,0,0{rectangular (Dirichlet) | 13.3 dB,Hanning | differentiable | 31.5 dB,2 Term Cosine (Hamming) | 43.187 dB,3 Term Cosine (Blackman-Nutall) | 71.482 dB,4 Term Cosine (Blackman-Nutall) | 98.173 dB,5 Term Cosine | 125.427 dB,6 Term Cosine | 153.566 dB,7 Term Cosine | 180.468 dB,8 Term Cosine | 207.512 dB,9 Term Cosine | 234.734 dB,10 Term Cosine | 262.871 dB,11 Term Cosine | 289.635 dB,2 Term Exact Hamming | 41.7 dB,3 Term Exact Blackman | 68.2 dB,4 Term Blackman-Harris window | 92 dB,15: custom tanh,16}>Window Function
+slider9:win_slider=1<0,16,1{rectangular (Dirichlet) | 13.3 dB,Hanning | differentiable | 31.5 dB,2 Term Cosine (Hamming) | 43.187 dB,3 Term Cosine (Blackman-Nutall) | 71.482 dB,4 Term Cosine (Blackman-Nutall) | 98.173 dB,5 Term Cosine | 125.427 dB,6 Term Cosine | 153.566 dB,7 Term Cosine | 180.468 dB,8 Term Cosine | 207.512 dB,9 Term Cosine | 234.734 dB,10 Term Cosine | 262.871 dB,11 Term Cosine | 289.635 dB,2 Term Exact Hamming | 41.7 dB,3 Term Exact Blackman | 68.2 dB,4 Term Blackman-Harris window | 92 dB,15: custom tanh,16}>Window Function
 
 in_pin:Input L
 in_pin:Input R

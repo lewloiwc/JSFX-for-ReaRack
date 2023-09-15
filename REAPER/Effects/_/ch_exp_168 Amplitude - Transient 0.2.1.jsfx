@@ -4,7 +4,7 @@ slider1:attack_1_slider=3<0,1000,0.1>attack time 1 (ms)
 slider2:release_1_slider=300<0,1000,0.1>release time 1 (ms)
 slider3:attack_2_slider=30<0,1000,0.1>attack time 2 (ms)
 slider4:release_2_slider=300<0,1000,0.1>release time 2 (ms)
-slider5:time_slider=1<0,10,0.01}>global time (×)
+slider5:time_slider=1<0,10,0.01>global time (×)
 //検出速度?　速度を上げると細かいTransientも拾うようになる?
 
 slider11:gain_2_slider=6<0,20,0.01>Threshold (dB)

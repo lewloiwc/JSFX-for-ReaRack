@@ -1,7 +1,7 @@
 desc:ch_exp_82 MIDI Trigger Envelope 2.0.0 re_exp CV
 
-slider1:channel_slider=0<0,0,0{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}>MIDI Channel
-slider2:velocity_slider=0<0,0,0{OFF,Linear,Logarithm,Square}>Velocity
+slider1:channel_slider=0<0,15,1{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16}>MIDI Channel
+slider2:velocity_slider=0<0,3,1{OFF,Linear,Logarithm,Square}>Velocity
 slider3:a_slider=50<0,1000,0.1>Attack [ms]
 slider4:a_slope_slider=0<-10,10,.01>Attack Slope Shape ----------------
 slider5:d_slider=200<0,5000,1>Decay [ms]
